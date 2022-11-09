@@ -47,7 +47,7 @@ def readQrelFile(file):
     return file_content
 
 
-def readResultFile(file, doc_col, grade_col):
+def readresultfile(file, doc_col, grade_col):
     file_content = dict()
     with open(file, mode='r') as eval_file:
         content = eval_file.read().split("\n")
@@ -77,7 +77,7 @@ def readResultFile(file, doc_col, grade_col):
     return file_content
 
 
-def printEvaluations(count_ret, count_rel, count_rel_ret, prec_at_recall_cutoffs, avg_precision, prec_at_prec_cutoffs,
+def printevaluations(count_ret, count_rel, count_rel_ret, prec_at_recall_cutoffs, avg_precision, prec_at_prec_cutoffs,
                      r_precision, ndcg, f1_k):
     f1_cutoffs = (5, 10, 20, 50, 100)
     print("Documents retrieved: " + str(count_ret))
