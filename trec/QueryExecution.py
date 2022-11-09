@@ -335,34 +335,3 @@ if __name__ == '__main__':
 
     _write_result(result_bm25, RESULT_BM25_FILE)
     _write_result(result_esbuiltin, RESULT_ESBUILTIN_FILE)
-
-    # doc_length_file = open("./docLengthFinal.pickle", 'rb')
-    # d1 = pickle.load(doc_length_file)
-    # print(len(d1))
-    # doc_length_file.close()
-    #
-    # doc_length_file = open("./docLength5.pickle_11.0", 'rb')
-    # d2 = pickle.load(doc_length_file)
-    # print(len(d2))
-    # doc_length_file.close()
-    #
-    # final = dict()
-    # for url in d1:
-    #     if url not in final:
-    #         final[url] = d1[url]
-    # for url in d2:
-    #     if url not in final:
-    #         final[url] = d2[url]
-    #
-    # print(len(final))
-    # file = open("./docLengthFinal.pickle", 'wb')
-    # pickle.dump(final, file)
-    # exit()
-    #
-    # doc_length_file = open("./docLengthFinal.pickle", 'rb')
-    # final = pickle.load(doc_length_file)
-    # print(len(final))
-    # doc_length_file.close()
-    #
-    # get_length_all_docs(final)
-    # exit()
