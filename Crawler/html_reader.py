@@ -188,4 +188,4 @@ class HtmlReader(object):
             print("Unable to get headers of web page")
             pass
         finally:
-            return info, wave, inlinks, frontierManager  # do nothing
+            #return info, wave, inlinks, frontierManager  # do nothing
