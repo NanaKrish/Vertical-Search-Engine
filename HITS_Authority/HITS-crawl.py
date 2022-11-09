@@ -270,9 +270,8 @@ def compute_auth_SALSA(inlinks, outlinks, rootSet):
 
     countBaseSetWithInlinks = 0
     for page_id in rootSet:
-        if page_id in inlinks:
-            if len(inlinks[page_id]) > 0:
-                countBaseSetWithInlinks += 1
+        if page_id in inlinks and len(inlinks[page_id]) > 0:
+            countBaseSetWithInlinks += 1
 
     for page_id in rootSet:
         if page_id in inlinks:
