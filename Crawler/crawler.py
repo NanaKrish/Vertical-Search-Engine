@@ -102,8 +102,8 @@ if __name__ == '__main__':
     start_time = time.time()
     maritime_keyword_list, stopword_list, aircraft_list = preprocessing()
 
-    seed_urls = ['http://en.wikipedia.org/wiki/List_of_maritime_disasters',
-                 'http://en.wikipedia.org/wiki/Sinking_of_the_MV_Sewol',
+    seed_urls = ['https://en.wikipedia.org/wiki/List_of_maritime_disasters',
+                 'https://en.wikipedia.org/wiki/Sinking_of_the_MV_Sewol',
                  'https://www.nytimes.com/2019/06/10/world/asia/sewol-ferry-accident.html',
                  'https://www.bbc.com/news/world-asia-39361944',
                  'https://www.history.com/news/5-maritime-disasters-you-might-not-know-about']
