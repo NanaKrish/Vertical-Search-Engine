@@ -83,7 +83,7 @@ def getInitialQueryResult():
     return rootset
 
 
-def expandRootSet(inlinks, outlinks, rootSet):
+def expandrootset(inlinks, outlinks, rootSet):
     for i in range(2, 3):
         tempRootSet = dict()
         for page_id in rootSet:
