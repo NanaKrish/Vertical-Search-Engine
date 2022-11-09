@@ -45,18 +45,9 @@ class Index:
     es = Elasticsearch('https://bf7d8087ca284033b930a990073d7b4e.us-central1.gcp.cloud.es.io',
                        http_auth=(USERNAME, PASSWORD), scheme='https', port=9243)
 
-    # localhost settings
-    # ES_HOST = {"host": "localhost", "port": 9200}
-    # INDEX_NAME = 'maritime_accidents'
-    # TYPE_NAME = 'document'
-    # es = Elasticsearch(hosts=[ES_HOST], timeout=3600)
-
+   
     def delete_and_create_new_index(self):
-        # if self.es.indices.exists(self.INDEX_NAME):
-        #     print("index already exists... deleting " + self.INDEX_NAME + " index...")
-        #     res = self.es.indices.delete(index=self.INDEX_NAME, ignore=[400, 404])
-        #     print(" response: '%s'" % res)
-
+        
         request_body = {
             "settings": {
                 "number_of_shards": 1,
