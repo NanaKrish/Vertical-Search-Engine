@@ -55,7 +55,7 @@ def crawl_web(frontierManager):
                             info, wave, inlinks, frontierManager = hr.read_page(wave, frontierManager, score, inlinks,
                                                                                 crawling_history, maritime_keyword_list,
                                                                                 stopword_list)
-                            if info is not None and info is not '':  # if there is no error while reading the web page
+                            if info is not None and info != '':  # if there is no error while reading the web page
                                 data_to_be_indexed[top_url] = info  # insert url in data to be indexed
                                 # Write contents into a file
                                 result_file.write(top_url + " " + str(score) + "\n")
