@@ -32,7 +32,7 @@ def write_score_data(file, result):
     no_hits = len(result["hits"]["hits"])
     for j in range(0, no_hits):
         doc_id = result["hits"]["hits"][j]["_source"]["id"]
-        id = result["hits"]["hits"][j]["_id"]
+        id1 = result["hits"]["hits"][j]["_id"]
         print(doc_id)
         score = input("Enter score: ")
         file.write(""+str(topic_id)+" "+username+" "+id+" "+str(score)+"\n")
