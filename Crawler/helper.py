@@ -204,4 +204,4 @@ def get_wiki_summary(weblink, query):
         summary = []
         print("Cannot access summary for " + weblink)
     finally:
-        return summary
+        #return summary
