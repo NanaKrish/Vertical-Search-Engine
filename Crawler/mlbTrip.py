@@ -37,14 +37,14 @@ def getBestRoute(G, S, T, B, k):
                 if v in B:
                     for u in range(0, n):
                         if DP[u][j - 1][l - 1] == 9999:
-                            print(+str(u)+" unexplored")
+                            print(str(u)+" unexplored")
                         if G[u][v] != 0:  # indicates that u is an incoming node for v
                             if DP[v][j][l] > DP[u][j - 1][l - 1] + G[u][v]:
                                 DP[v][j][l] = DP[u][j - 1][l - 1] + G[u][v]
                 else:
                     for u in range(0, n):
                         if DP[u][j - 1][l - 1] == 9999:
-                            print(+str(u)+" unexplored")
+                            print(str(u)+" unexplored")
                         if G[u][v] != 0:  # indicates that u is an incoming node for v
                             if DP[v][j][l] > DP[u][j - 1][l] + G[u][v]:
                                 DP[v][j][l] = DP[u][j - 1][l] + G[u][v]
