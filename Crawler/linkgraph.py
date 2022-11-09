@@ -20,7 +20,6 @@ def read_outlinks(batch_no, batch_size, outlinks):
     start = ((batch_no - 1) * batch_size / 100) + 1  # docs crawled in last batch + 1
     end = start + batch_size / 100
     while start < end:
-        # print("Reading from file " + str(start))
         filepath = open(os.path.join(PARTIAL_INDEXING_FOLDER, str(start)), 'rb')
         print(filepath)
         new_dict = pickle.load(filepath)
@@ -54,7 +53,6 @@ def read_outlinks(batch_no, batch_size, outlinks):
         pickle.dump(outlinks, filepath)
         filepath.close()
 
-        # data_to_be_indexed.update(new_dict)  # merging existing data with new data
         start += 1
     return outlinks
 
@@ -79,34 +77,23 @@ def sync_inlinks_outlinks(inlinks, crawl_hist_dict, sj_crawl_hist_dict, ps_crawl
             except Exception:
                 print("Error to sync inlinks")
                 pass
-            # Conversion to domain names for uncrawled urls
-            # print(data[doc]["outlinks"]) #set
-            # curr_outlinks = data[doc]["outlinks"]
             new_domains = set()
             red_urls = set()
-            # print("---------------- Converting redundant urls to domain names ----------")
-            # print("For " + doc + " "+str(len(data[doc]["outlinks"])))
             for link in data[doc]["outlinks"]:
                 try:
                     if link not in crawl_hist_dict:
                         if link not in sj_crawl_hist_dict:
                             if link not in ps_crawl_hist_dict:
                                 domain_url = get_base_url(link)
-                                # print("Converting " + link + " to domain " + domain_url)
                                 red_urls.add(link)
                                 new_domains.add(domain_url)
                 except Exception:
                     print("Error to convert unused outlink " + link + " to domain name")
                     pass
-            # print(red_urls)
-            # print(new_domains)
-            # print("Red urls for "+doc+" = "+str(len(red_urls)) +" out of total of "+str(len(data[doc]["outlinks"])))
             for url in red_urls:
                 data[doc]["outlinks"].remove(url)
-            # print("Remove red -- "+str(len(data[doc]["outlinks"])))
             data[doc]["outlinks"].update(new_domains)
-            # print("For " + doc + " "+str(len(data[doc]["outlinks"])))
-
+            
         check = "http://en.wikipedia.org/wiki/List_of_maritime_disasters"
         if check in data:
             print(data[check]["inlinks"])
@@ -150,11 +137,9 @@ def get_all_inlinks(crawl_hist_dict, outlinks):
                                     if link in in_links.keys():
                                         if doc in crawl_hist_dict.keys():
                                             in_links[link].add(doc)
-                                            # print("Adding " + doc + " to inlinks of " + link)
-                                        else:
+                                            :
                                             print(doc + " not in crawl his, cannot be added to inlinks of " + link)
                                     else:
-                                        # print("Adding "+link+" to inlinks dictionary")
                                         in_links[link] = set()
                                         in_links[link].add(doc)
                                 else:
@@ -193,11 +178,7 @@ def verify_sync(inlinks):
             except Exception:
                 print("Error to sync inlinks")
                 pass
-        #     finally:
-        #         if len(data[doc]["inlinks"]) > 800:
-        #             # print(doc)
-        #             count += 1
-        # print(count)
+        
     print("----------verify Sync complete-----------")
 
 
@@ -206,18 +187,7 @@ if __name__ == '__main__':
     total_batches = int(40000 / batch_size)
 
     # 1. As outlinks were not accounted initially, this code parsed the war_html and identified outlinks
-    # print("------Get outlinks ------")
-    # outlinks = {}
-    # for i in range(1, total_batches+2):
-    #     print("Processing batch " + str(i))
-    #     outlinks = read_outlinks(i, batch_size, outlinks)
-    #     print(len(outlinks))
-    #
-    # print("------Writing final outlinks ------")
-    # filepath = open(FINAL_OUTLINKS_FILE, 'wb')
-    # pickle.dump(outlinks, filepath)
-    # filepath.close()
-
+    
     # While crawling the web, few documents which were later crawled and had outlinks
     # as prev crawled docs were missed as inlinks in prev crawled doc. This function helps to sync all the outlinks with the inlink
 
@@ -236,58 +206,13 @@ if __name__ == '__main__':
     filepath.close()
     print("Length of outlinks " + str(len(outlinks)))
 
-    # count = 0
-    # for link in outlinks:
-    #     for outgoing_link in outlinks[link]:
-    #         if outgoing_link == "https://www.nytimes.com/2019/06/10/world/asia/sewol-ferry-accident.html":
-    #             print(link + "has outgoin link to bbc")
-    # exit()
-
+    
     print("------Get inlinks ------")
     inlinks = get_all_inlinks(crawl_hist_dict, outlinks)
 
-    # filepath = open(FINAL_INLINKS_FILE, 'rb')
-    # inlinks = pickle.load(filepath)
-    # filepath.close()
     print("Length of inlinks " + str(len(inlinks)))  # check
     print(inlinks["http://en.wikipedia.org/wiki/List_of_maritime_disasters"])  # check
-    # print(len(inlinks["http://en.wikipedia.org/wiki/France"]))
-    # for key in inlinks:
-    #     if len(inlinks[key]) > 3000:
-    #         print(key)
-    # count = 0
-    # for url in inlinks:
-    #     if len(inlinks[url]) > 800:
-    #         count += 1
-    #         print(url)
-    # print(count)
-    # exit()
-    # print(inlinks["http://en.wikipedia.org/wiki/Buddy_diving"])  # check
-    # print(inlinks["http://en.wikipedia.org/wiki/Apostles"])
-    #
-    # for incoming_link in inlinks["http://en.wikipedia.org/wiki/Apostles"]:
-    #     print(incoming_link+"\n")
-    # countCorrect = 0
-    # countWrong = 0
-    # for url in inlinks:
-    #     for incoming_link in inlinks[url]:
-    #         if incoming_link in crawl_hist_dict:
-    #             if incoming_link in outlinks.keys():
-    #                 if url in outlinks[incoming_link]:
-    #                     countCorrect += 1
-    #                 else:
-    #                     countWrong += 1
-    #                     print(url)
-    #                     print(incoming_link)
-    #             else:
-    #                 countWrong += 1
-    #                 print(url)
-    #                 print(incoming_link)
-    #         else:
-    #             print(""+incoming_link+" not crawled")
-    # print(countCorrect)
-    # print(countWrong)
-    # exit()
+    
 
     filepath = open(SJ_CRAWL_URLS_FILE, 'rb')
     content = pickle.load(filepath)
@@ -310,13 +235,4 @@ if __name__ == '__main__':
     print("------Sync all inlink outlinks------")
     sync_inlinks_outlinks(inlinks, crawl_hist_dict, sj_crawl_hist_dict, ps_crawl_hist_dict)
 
-    # print("------Verify sync------")
-    # verify_sync(inlinks)
-
-    # count = 0
-    # for url in sj_crawl_hist_dict.keys():
-    #     if url in crawl_hist_dict or url in ps_crawl_hist_dict:
-    #         count += 1
-    #         print(url)
-    # print(count)
-
+    
