@@ -3,7 +3,7 @@ import pprint
 import numpy
 
 
-def getBestRoute(G, S, T, B, k):
+def getbestroute(G, S, T, B, k):
     n = len(G)
     # DP table would be a 3D table with dimensions as vertex, hops, and num of ballpark nodes
     DP = [[[8888 for ll in range(0, k+1)] for j in range(0, n - 1)] for v in range(0, n)]
@@ -13,7 +13,6 @@ def getBestRoute(G, S, T, B, k):
     print("-------------Define base cases--------------")
     #  base cases
     for v in range(0, n):
-        # print("Processing node " + str(v))
         for x in range(0, k+1):
             DP[v][0][x] = 999
 
